@@ -19,12 +19,6 @@ node * getnode(int info) {
 }
 
 node * insert(node * root, int ele) {
-    // Validate score range
-    if(ele < 1 || ele > 100) {
-        printf("Invalid score! Please enter a score between 1 and 100.\n");
-        return root;
-    }
-
     node * newnode = getnode(ele);
     if(root == NULL)
         return newnode;

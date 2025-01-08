@@ -1,17 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
-
 struct node{
     int data;
     struct node *link;
 };
 typedef struct node node;
-
 struct Queue{
     node * front , *rear;
 };
 typedef struct Queue Queue;
-
 node * getnode (int data){
     node * ptr= (node *)malloc(sizeof(node));
     if(ptr != NULL){
@@ -23,13 +20,8 @@ node * getnode (int data){
 int isEmpty(Queue *q){
     return (q->front == NULL);
 }
-
 void enqueue (Queue *q , int data){
     node * newnode = getnode(data);
-    if(newnode == NULL){
-        puts("Memory alloc failed!");
-        return;
-    }
     if (isEmpty(q)){
         q->front = q->rear = newnode;
     }else{
@@ -38,7 +30,6 @@ void enqueue (Queue *q , int data){
     }
     printf("Enqueued %d\n",data);
 }
-
 int dequeue(Queue *q ){
     if(isEmpty(q)){
         puts("Queue Underflown");
@@ -67,7 +58,6 @@ void display(Queue *q){
     }
     puts("");
 }
-
 int main(){
     Queue q;
     q.front = q.rear = NULL;

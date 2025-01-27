@@ -8,65 +8,62 @@ struct student {
     float cgpa;
 };
 typedef struct student stud;
-void Disp(stud *s){
-    printf("\nName: %s\tUSN: %s\tAge: %d\tCGPA: %.2f\n",s->Name,s->USN,s->age,s->cgpa);
+
+void Disp(stud *s) {
+    printf("\nName: %s\tUSN: %s\tAge: %d\tCGPA: %.2f\n", s->Name, s->USN, s->age, s->cgpa);
 }
 
-void input(stud *s){
-    while(getchar() != '\n');
-
-    printf("Name : ");
-    fgets(s->Name , sizeof(s->Name),stdin);
-    s->Name[strcmp(s->Name,"\n")]=0;
+void input(stud *s) {
+    while (getchar() != '\n'); // Clear input buffer
+    printf("Name: ");
+    fgets(s->Name, sizeof(s->Name), stdin);
+    s->Name[strcspn(s->Name, "\n")] = 0; // Remove trailing newline
 
     printf("USN: ");
-    fgets(s->USN, sizeof(s->USN),stdin);
-    s->USN[strcmp(s->USN,"\n")] = 0;
+    fgets(s->USN, sizeof(s->USN), stdin);
+    s->USN[strcspn(s->USN, "\n")] = 0; // Remove trailing newline
 
     printf("Age: ");
-    scanf("%d",&s->age);
-
+    scanf("%d", &s->age);
     printf("CGPA: ");
-    scanf("%f",&s->cgpa);
+    scanf("%f", &s->cgpa);
 }
 
-void dispwithcgpa(stud * std, int n , float target){
-    printf("\nStudents with CGPA:");
+void dispWithCGPA(stud *std, int n, float target) {
+    printf("\nStudents with CGPA >= %.2f:\n", target);
     int found = 0;
-
-    for (int i = 0; i<n ; i++){
-        if(std[i].cgpa >= target){
-            printf("\nStudent");
+    for (int i = 0; i < n; i++) {
+        if (std[i].cgpa >= target) {
             Disp(&std[i]);
             found = 1;
         }
     }
-    if (found == 0){
-        puts("no students with CGPA");
+    if (!found) {
+        puts("No students with the specified CGPA.");
     }
 }
 
-int main(){
+int main() {
     int n;
     float target;
 
-    printf("Enter number of students:");
-    scanf("%d",&n);
-    stud student[n];
+    printf("Enter number of students: ");
+    scanf("%d", &n);
 
-    for (int i = 0; i < n ; i++){
-        printf("Enter details for students %d",i+1);
+    stud student[n];
+    for (int i = 0; i < n; i++) {
+        printf("\nEnter details for student %d:\n", i + 1);
         input(&student[i]);
     }
 
-    printf("Student details are: ");
-    for (int i = 0 ; i<n ; i++){
+    printf("\nStudent details:\n");
+    for (int i = 0; i < n; i++) {
         Disp(&student[i]);
     }
-    printf("enter target:");
-    scanf("%f",&target);
 
-    dispwithcgpa(student, n,target);
+    printf("\nEnter target CGPA: ");
+    scanf("%f", &target);
+    dispWithCGPA(student, n, target);
 
     return 0;
 }

@@ -1,9 +1,3 @@
-//CLL
-// Insert Front
-// Display
-// Insert rear
-// delete rear
-// search
 #include <stdio.h>
 #include <stdlib.h>
 

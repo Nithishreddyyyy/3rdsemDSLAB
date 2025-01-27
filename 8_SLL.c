@@ -73,10 +73,6 @@ void Disp(node *root){
         puts("Empty List");
         return;
     }
-    if(root-> link == NULL){
-        printf("Single ele: %d",root -> data);
-        return;
-    }
     node * temp = root;
     printf("List elements are: ");
     while(temp != NULL){

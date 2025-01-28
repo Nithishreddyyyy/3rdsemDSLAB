@@ -14,14 +14,11 @@ void Disp(stud *s) {
 }
 
 void input(stud *s) {
-    while (getchar() != '\n'); // Clear input buffer
     printf("Name: ");
-    fgets(s->Name, sizeof(s->Name), stdin);
-    s->Name[strcspn(s->Name, "\n")] = 0; // Remove trailing newline
+    scanf(" %49[^\n]", s->Name);
 
     printf("USN: ");
-    fgets(s->USN, sizeof(s->USN), stdin);
-    s->USN[strcspn(s->USN, "\n")] = 0; // Remove trailing newline
+    scanf(" %49[^\n]", s->USN);
 
     printf("Age: ");
     scanf("%d", &s->age);

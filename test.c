@@ -1,92 +1,67 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-struct node {
-    int data;
-    struct node * link;
+#define max 5
+struct stack{
+    char sy[max];
+    int top;
 };
-typedef struct node node;
+typedef struct stack S1;
 
-node * getnode (int info){
-    node * ptr = (node *)malloc(sizeof(node));
-    if(ptr != NULL){
-        ptr -> data = info;
-        ptr -> link = NULL;
+int inp_prec(char symbol){
+    switch (symbol){
+        case '+':
+        case '-':   return 1;
+        case '*':
+        case '/':   return 3;
+        case '$':
+        case '^':   return 6;
+        case ')':   return 9;
+        case '(':   return 0;
+        default :   return 7;
     }
-    return ptr;
+}
+int stack_prec(char symbol){
+    switch (symbol) {
+        case '+':
+        case '-':   return 2;
+        case '*':
+        case '/':   return 4;
+        case '$':
+        case '^':   return 5;
+        case '(':   return 0;
+        case '#':   return -1;
+        default :   return -2;
+    }
 }
 
-node * insert_front (node * root , int data){
-    node * newnode = getnode(data);
-    if(newnode == NULL){
-        puts("Memory alloc failed\n");
-        return root;
-    }
-    if(root == NULL){
-        return newnode;
-    }
-    newnode -> link = root;
-    return newnode;
+int isFull(S1 s){
+    return(s.top == max - 1);
 }
 
-node * delete_rear (node * root){
-    if(root == NULL){
-        puts("List is empty");
-        return root;
-    }
-    if(root ->link == NULL){
-        printf("Deleted ele: %d\n",root -> data);
-        free(root);
-        return NULL;
-    }
-    node * temp= root,* prev = NULL;
-    while(temp -> link != NULL){
-        prev = temp;
-        temp = temp->link;
-    }
-
-    printf("deleted ele : %d",temp -> data);
-    prev -> link = NULL;
-    free(temp);
-    return root;
+int isEmpty(S1 s){
+    return (s.top == -1);
 }
 
-int searchLL(node * root , int ele){
-    if(root == NULL){
-        puts("Empty");
-        return -2;
+void push(S1 *s, char item){
+    if(isFull(*s)){
+        puts("\nStack Overflow");
     }
-    node * temp = root;
-    int pos = 0;
-    while(temp != NULL ){
-        pos++;
-        if(temp -> data == ele){
-            return pos;
-        }
-        temp = temp->link;
+    else {
+        s->sy[++s->top] = item;
     }
-    return -1;
 }
 
-void Disp(node * root){
-    if(root == NULL){
-        puts("Empty List");
-        return;
+char pop(S1 *s){
+    if(s->top == -1){
+        puts("\nStack Underflow");
+        return '\0';
+    }else{
+        return s->sy[s->top--];
     }
-    if(root -> link == NULL){
-        printf("Single ele : %d",root -> data);
-        return;
-    }
-    node * temp = root;
-    printf("List ele are : ");
-    while(temp != NULL){
-        printf("%d\t",temp -> data);
-        temp = temp -> link;
-    }
-    puts("");
 }
 
-int main(){
-    node * root = NULL;
-    int choice , data
+void inf_post(char *infix , char * postfix){
+
 }

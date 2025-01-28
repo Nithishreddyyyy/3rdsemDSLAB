@@ -92,8 +92,7 @@ void inf_post(char *infix , char *postfix){
         }
     }
     while(S1.sy[S1.top] != '#'){
-        postfix[j] = pop(&S1);
-        j++;
+        postfix[j++] = pop(&S1);
     }
     postfix[j] = '\0';
 }

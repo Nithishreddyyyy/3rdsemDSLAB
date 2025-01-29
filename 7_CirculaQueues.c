@@ -1,94 +1,113 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define SIZE 5
+#define MAX 5
 
-struct CQueue{
-    int items[SIZE];
-    int front , rear;
+struct CQueue {
+    char items[MAX];
+    int front, rear;
 };
-typedef struct CQueue C;
+typedef struct CQueue CQ;
 
-int isEmpty(C c){
-    return(c.rear == -1 && c.front ==-1);
+int isEmpty(CQ c) {
+    return (c.rear == -1 && c.front == -1);
 }
 
-int isFull(C c){
-    return ((c.rear + 1) % SIZE == c.front);
+int isFull(CQ c) {
+    return ((c.rear + 1) % MAX == c.front);
 }
-void Cenqueue(C *c1 , int ele){
-    if(isFull(*c1)){
-        puts("\nCircular queue is full");
+
+void Cenqueue(CQ *c1, char ele) {
+    if(isFull(*c1)) {
+        puts("\nCircular Queue is FULL");
         return;
     }
     if(isEmpty(*c1))
         c1->front = 0;
-    c1->rear = (c1->rear + 1) % SIZE;
+    c1->rear = (c1->rear + 1) % MAX;
     c1->items[c1->rear] = ele;
-    printf("%d enqueued into queue",ele);
+    printf("\nCharacter '%c' enqueued into queue", ele);
 }
 
-int Cdequeue(C *c){
-    int item;
-    if(isEmpty(*c)){
-        puts("Circular queue is empty");
-        return -1;
+char Cdequeue(CQ *c) {
+    char item;
+    if(isEmpty(*c)) {
+        puts("\nCircular Queue is EMPTY");
+        return '\0';
     }
-    item= c->items[c->front];
-    if(c->front == c->rear){
-        c->front = c-> rear = -1;   //Empty Queue
-    }else{
-        c->front = (c->front +1) %SIZE;
+    item = c->items[c->front];
+    if(c->front == c->rear) {
+        c->front = c->rear = -1;   //Empty Queue
+    } else {
+        c->front = (c->front + 1) % MAX;
     }
     return item;
 }
 
-void disp(C c){
-    if(isEmpty(c)){
-        puts("Circular eueue is Empty");
-        return ;
+void display(CQ c) {
+    if(isEmpty(c)) {
+        puts("\nCircular Queue is EMPTY");
+        return;
     }
 
     int i = c.front;
-    printf("Queue elelemtns are :  ");
-    while(i!=(c.rear+1)%SIZE){
-        printf("%d\t",c.items[i]);
-        i = (i+1)%SIZE;
+    printf("\nQueue elements are: ");
+    while(i != (c.rear + 1) % MAX) {
+        printf("%c ", c.items[i]);
+        i = (i + 1) % MAX;
     }
     puts("");
 }
-int main (){
-    C C1;
-    C1.front = C1.rear = -1;
-    int choice , ele;
-    while (1){
-        printf("\nMenu\n");
-        puts("1. Enqueue");
-        puts("2. Dequeue");
-        puts("3. Display");
-        puts("4. Exit");
-        printf("Enter the choice: ");
-        scanf("%d",&choice);
 
-        switch (choice){
+void showStatus(CQ c) {
+    if(isEmpty(c))
+        puts("\nQueue Status: EMPTY");
+    else if(isFull(c))
+        puts("\nQueue Status: FULL");
+    else
+        puts("\nQueue Status: PARTIALLY FILLED");
+
+    printf("Front: %d, Rear: %d\n", c.front, c.rear);
+}
+
+int main() {
+    CQ Q1;
+    Q1.front = Q1.rear = -1;
+    int choice;
+    char ele;
+
+    while(1) {
+        printf("\nCircular Queue Operations\n");
+        puts("1. Insert an Element");
+        puts("2. Delete an Element");
+        puts("3. Display Queue");
+        puts("4. Check Queue Status");
+        puts("5. Exit");
+        printf("Enter your choice: ");
+        scanf(" %d", &choice);
+
+        switch(choice) {
             case 1:
-                printf("Enter the element: ");
-                scanf("%d",&ele);
-                Cenqueue(&C1, ele);
+                printf("Enter character to insert: ");
+                scanf(" %c", &ele);
+                Cenqueue(&Q1, ele);
                 break;
             case 2:
-                ele = Cdequeue(&C1);
-                if (ele != -1){
-                    printf("The dequeued ele: %d",ele);
-                }
+                ele = Cdequeue(&Q1);
+                if(ele != '\0')
+                    printf("\nDeleted character: %c\n", ele);
                 break;
             case 3:
-                disp(C1);
+                display(Q1);
                 break;
             case 4:
-                puts("Terminating the program");
-                exit(1);
-            default :
-                printf("Invalid");
+                showStatus(Q1);
+                break;
+            case 5:
+                puts("\nExiting Program...");
+                exit(0);
+            default:
+                puts("\nInvalid Choice!");
         }
     }
+    return 0;
 }

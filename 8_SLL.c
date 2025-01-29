@@ -81,11 +81,6 @@ void Disp(node *root){
     }
     puts("");
 }
-// SLL
-// Insert at front
-// Delete at rear
-// search for ele
-// Disp
 int main(){
     node * root = NULL;
     int choice , data , pos;

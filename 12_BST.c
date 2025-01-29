@@ -66,7 +66,7 @@ int searchScore(node * root, int score) {
     if(root->data == score)
         return 1;
 
-    if(score < root->data)
+    if(root->data > score)
         return searchScore(root->left, score);
     else
         return searchScore(root->right, score);

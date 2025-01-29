@@ -60,12 +60,12 @@ int isPali(S1 *s){
         count ++;
     }
 
-    for (int i = 0; i < count / 2; i++){
-        if(temp[i] == temp[count -1 -i]){
-            return 1;
+    for (int i = 0; i < count / 2; i++) {
+        if(temp[i] != temp[count - 1 - i]) {
+            return 0;
         }
     }
-    return 0;
+    return 1;
 }
 
 int main(){

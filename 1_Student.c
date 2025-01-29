@@ -10,14 +10,14 @@ struct student {
 typedef struct student stud;
 
 void Disp(stud *s) {
-    printf("\nName: %s\tUSN: %s\tAge: %d\tCGPA: %.2f\n", s->Name, s->USN, s->age, s->cgpa);
+    ("\nName: %s\tUSN: %s\tAge: %d\tCGPA: %.2f\n", s->Name, s->USN, s->age, s->cgpa);
 }
 
 void input(stud *s) {
-    printf("Name: ");
+("Name: ");
     scanf(" %49[^\n]", s->Name);
 
-    printf("USN: ");
+("USN: ");
     scanf(" %49[^\n]", s->USN);
 
     printf("Age: ");

@@ -58,16 +58,6 @@ void display(CQ c) {
     puts("");
 }
 
-void showStatus(CQ c) {
-    if(isEmpty(c))
-        puts("\nQueue Status: EMPTY");
-    else if(isFull(c))
-        puts("\nQueue Status: FULL");
-    else
-        puts("\nQueue Status: PARTIALLY FILLED");
-
-    printf("Front: %d, Rear: %d\n", c.front, c.rear);
-}
 
 int main() {
     CQ Q1;
@@ -80,8 +70,7 @@ int main() {
         puts("1. Insert an Element");
         puts("2. Delete an Element");
         puts("3. Display Queue");
-        puts("4. Check Queue Status");
-        puts("5. Exit");
+        puts("4. Exit");
         printf("Enter your choice: ");
         scanf(" %d", &choice);
 
@@ -100,9 +89,6 @@ int main() {
                 display(Q1);
                 break;
             case 4:
-                showStatus(Q1);
-                break;
-            case 5:
                 puts("\nExiting Program...");
                 exit(0);
             default:

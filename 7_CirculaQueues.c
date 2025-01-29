@@ -51,10 +51,10 @@ void display(CQ c) {
 
     int i = c.front;
     printf("\nQueue elements are: ");
-    while(i != (c.rear + 1) % MAX) {
-        printf("%c ", c.items[i]);
-        i = (i + 1) % MAX;
-    }
+    do {
+        printf("%c    ",c.items[i]);
+        i = (i+1)%MAX;
+    }while(i!=(c.rear +1)%MAX);
     puts("");
 }
 

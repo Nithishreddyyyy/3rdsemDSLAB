@@ -22,6 +22,9 @@ node * Push(node * top , int item){
         puts("memory alloc failed");
         return top;
     }
+    if(top == NULL){
+        return newnode;
+    }
     newnode -> link = top;
     printf("Pushed ele :%d\n",item);
     return newnode;

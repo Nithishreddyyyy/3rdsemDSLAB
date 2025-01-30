@@ -1,96 +1,86 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-struct node{
+struct node {
     int data;
-    struct node * link;
+    struct node *link;
 };
 typedef struct node node;
-
-node * front = NULL;
-node * rear = NULL;
-
-node * getnode(int info){
+node * getnode (int info){
     node * ptr = (node *)malloc(sizeof(node));
     if(ptr!=NULL){
         ptr->data = info;
-        ptr->link = NULL;
+        ptr->link=NULL;
     }
     return ptr;
 }
-
-node * enqueue(node * front , int data){
+node * enqueue(node * root , int data){ //Insert REAR
     node * newnode = getnode(data);
-    if(newnode == NULL){
-        puts("memory alloc failed!");
-        return front;
+    if (newnode == NULL){
+        puts("Memory Alloc failed!");
+        return newnode;
     }
-    if(rear == NULL){
-        front = rear = newnode;
+    if(root == NULL){
+        return newnode;
     }
-    else{
-        rear ->link = newnode;
-        rear = newnode;
+    node * temp = root;
+    while(temp -> link !=NULL){
+        temp = temp->link;
     }
-    return front;
+    temp -> link = newnode;
+    return root;
 }
-
-node * dequeue (node * front){
-    if(front == NULL){
-        printf("Queue is empty");
-        return front;
+node * dequeue(node * root){    //delete front
+    if(root == NULL){
+        puts("No elements in the list");
+        return root;
     }
-    node * temp = front;
-    printf("Dequeued :%d" , temp -> data);
-    front = front -> link;
-    if(front == NULL){
-        rear = NULL;
-    }
+    node * temp = root;
+    printf("The dequeued ele is: %d",temp->data);
+    root = root -> link;
     free(temp);
-    return front;
+    return root;
 }
-
-void Disp(node * front){
-    if(front ==NULL){
-        printf("queue is empty");
+void disp(node * root){
+    if(root == NULL){
+        puts("Empty List");
         return;
     }
-    printf("Queue elements are: ");
-    node * temp = front ;
-    while(temp != NULL){
-        printf("%d   ",temp->data);
-        temp = temp->link;
+    node * temp = root;
+    while(temp!=NULL){
+        printf("\t%d\t",temp->data);
+        temp = temp -> link;
     }
     puts("");
 }
-
 int main(){
-    int choice , value;
+    struct node * root = NULL;
+    int choice,ele;
     while(1){
-        puts("1. Enqueue");
-        puts("2. Dequeue");
-        puts("3. Display");
-        puts("4. Exit");
-        printf("Enter your choice: ");
+        puts("1.Enqueue");
+        puts("2.Dequeue");
+        puts("3.Disp");
+        puts("4.Exit");
+        printf("Enter your choice:  ");
         scanf("%d",&choice);
-
-        switch(choice){
+        switch (choice) {
             case 1:
-                printf("Enter the ele: ");
-                scanf("%d",&value);
-                front = enqueue (front , value);
+                printf("Enter ele to enqueue");
+                scanf("%d",&ele);
+                root = enqueue(root,ele);
                 break;
             case 2:
-                front = dequeue(front);
-                puts("");
+                root = dequeue(root);
                 break;
             case 3:
-                Disp(front);
+                disp(root);
                 break;
             case 4:
+                puts("Terminatingggg");
                 exit(1);
+                break;
             default:
-                printf("Invalid option");
+                printf("Invalid choice");
         }
     }
+    return 0;
 }

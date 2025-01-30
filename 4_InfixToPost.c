@@ -36,19 +36,12 @@ int stack_prec(char symbol){
         default :   return -2;
     }
 }
-
 int isFull(S1 s){
-    if(s.top == Max - 1)
-        return 1;
-    return 0;
+    return (s.top == Max -1);
 }
-
 int isEmpty(S1 s){
-    if(s.top == -1)
-        return 1;
-    return 0;
+    return (s.top == -1);
 }
-
 void push(S1 *s, char item){
     if(isFull(*s)){
         puts("\nStack Overflow");

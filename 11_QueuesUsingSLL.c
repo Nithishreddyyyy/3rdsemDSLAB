@@ -1,86 +1,89 @@
-#include<stdio.h>
-#include<stdlib.h>
-struct node
-{
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
     int data;
     struct node *link;
 };
 typedef struct node node;
-node *getnode(int info)
-{
-    node *ptr;
-    ptr = (node *)malloc(1*sizeof(node));
-    ptr->data=info;
-    ptr->link=NULL;
+
+node * getnode (int info){
+    node * ptr = (node *)malloc(sizeof(node));
+    if(ptr!=NULL){
+        ptr->data = info;
+        ptr->link=NULL;
+    }
     return ptr;
 }
-node *insert_rear(node *root, int info) {
-    node *newnode = getnode(info);
-    if (root == NULL) {
+
+node * enqueue(node * root , int data){ //Insert REAR
+    node * newnode = getnode(data);
+    if (newnode == NULL){
+        puts("Memory Alloc failed!");
         return newnode;
     }
-    node *temp = root;
-    while (temp->link != NULL) {
+    if(root == NULL){
+        return newnode;
+    }
+    node * temp = root;
+    while(temp -> link !=NULL){
         temp = temp->link;
     }
-    temp->link = newnode;
+    temp -> link = newnode;
     return root;
 }
-node *delete_front(node *root) {
-    if (root == NULL) {
-        printf("Queue is empty! Cannot dequeue.\n");
-        return NULL;
+
+node * dequeue(node * root){    //delete front
+    if(root == NULL){
+        puts("No elements in the list");
+        return root;
     }
-    node *temp = root;
-    printf("The dequeued data is %d\n", temp->data);
-    root = root->link;
+    node * temp = root;
+    printf("The dequeued ele is: %d",temp->data);
+    root = root -> link;
     free(temp);
     return root;
 }
-void display(node *root)
-{
-    node *temp;
-    temp=root;
-    if(root==NULL)
-    {
-        printf("Queue is empty\n");
+void disp(node * root){
+    if(root == NULL){
+        puts("Empty List");
         return;
     }
-    while(temp!=NULL)
-    {
-        printf("%d\n",temp->data);
-        temp=temp->link;
+    node * temp = root;
+    while(temp!=NULL){
+        printf("\t%d\t",temp->data);
+        temp = temp -> link;
     }
-    printf("\n");
+    puts("");
 }
-int main()
-{
+int main(){
+    struct node * root = NULL;
     int choice,ele;
-    struct node *root;
-    root = NULL;
-    printf("Choose an option:\t1.insert rear\t2.delete front\t3.Display\t4.exit\n");
-    while(1)
-    {
-        printf("Enter the choice:");
+    while(1){
+        puts("1.Enqueue");
+        puts("2.Dequeue");
+        puts("3.Disp");
+        puts("4.Exit");
+        printf("Enter your choice:  ");
         scanf("%d",&choice);
-        switch (choice)
-        {
+        switch (choice) {
             case 1:
-                printf("enter data:");
+                printf("Enter ele to enqueue");
                 scanf("%d",&ele);
-                root=insert_rear(root,ele);
+                root = enqueue(root,ele);
                 break;
             case 2:
-                root=delete_front(root);
+                root = dequeue(root);
                 break;
             case 3:
-                display(root);
+                disp(root);
                 break;
             case 4:
-                printf("Exiting....\n");
-                return 0;
+                puts("Terminatingggg");
+                exit(1);
+                break;
             default:
-                printf("Enter a valid choice\n");
+                printf("Invalid choice");
         }
     }
     return 0;

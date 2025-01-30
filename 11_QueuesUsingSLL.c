@@ -13,6 +13,7 @@ node * getnode (int info){
     }
     return ptr;
 }
+
 node * enqueue(node * root , int data){ //Insert REAR
     node * newnode = getnode(data);
     if (newnode == NULL){

@@ -8,7 +8,7 @@ struct node{
 typedef struct node node;
 
 node * getnode(int info){
-    node * ptr = (struct node*)malloc(sizeof(node));
+    node * ptr = (node*)malloc(sizeof(node));
     if(ptr!=NULL){
         ptr -> data = info;
         ptr -> link = NULL;

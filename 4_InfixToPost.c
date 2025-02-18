@@ -17,8 +17,8 @@ int inp_prec(char symbol){
         case '/':   return 3;
         case '$':
         case '^':   return 6;
-        case ')':   return 9;
-        case '(':   return 0;
+        case '(':   return 9;
+        case ')':   return 0;
         default :   return 7;
     }
 }

@@ -95,8 +95,8 @@ int count(node * root){
     return count(root->left)+ count (root -> right);
 }
 
-node* minNode(node* root) {
-    while (root && root->left) {
+node *minNode(node *root) {
+    while (root != NULL && root->left != NULL) {
         root = root->left;
     }
     return root;
